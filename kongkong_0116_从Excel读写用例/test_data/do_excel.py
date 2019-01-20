@@ -6,11 +6,7 @@ class Cases:
     def __init__(self):
         self.id = None
         self.title = None
-        # self.phone = None
-        # self.name = None
-        # self.pwd = None
         self.expected = None
-        # self.amount = None
         self.data = None
 
 
@@ -31,7 +27,6 @@ class DoExcel:
         sheet = self.open_sheet()[1]
         # 把数据存到列表，每条数据是一个用例
         cases = []
-
         for i in range(2, sheet.max_row + 1):
             dict_data = {}  # 将请求用到的数据用字典格式存储
             case = Cases()
