@@ -1,5 +1,6 @@
 import pymysql    # 导入操作数据库的库
 
+
 class DoMySQL:
 
     def __init__(self):
@@ -19,6 +20,7 @@ class DoMySQL:
         cursor = db.cursor()
         return cursor
 
+    # 查询
     def select(self,sql):
         cursor = self.connect_db()
         # 查询语句
@@ -29,7 +31,8 @@ class DoMySQL:
         data = cursor.fetchone()
         return data
 
-
+    def close(self):
+        pass
 
 
 if __name__ == '__main__':
