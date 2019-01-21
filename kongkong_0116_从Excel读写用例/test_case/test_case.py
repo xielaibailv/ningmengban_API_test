@@ -38,6 +38,7 @@ class TestCases(unittest.TestCase):
     def test_register(self, register_case):
         my_log.info('注册接口：开始执行第{}条用例：{}!!!'.format(register_case.id, register_case.title))
         r = session.request(method=method, url=register_url, headers=headers, data=register_case.data)
+        my_log.info(r.text)
         result = r.json()['status']
         try:
             self.assertEqual(register_case.expected, result)
@@ -58,6 +59,7 @@ class TestCases(unittest.TestCase):
     def test_login(self, login_case):
         my_log.info('登录接口：开始执行第{}条用例：{}!!!'.format(login_case.id,login_case.title))
         r = session.request(method=method, url=login_url, headers=headers, data=login_case.data)
+        my_log.info(r.text)
         result = r.json()['status']
         try:
             self.assertEqual(login_case.expected, result)
@@ -78,7 +80,8 @@ class TestCases(unittest.TestCase):
     def test_recharge(self, recharge_case):
         my_log.info('充值接口：开始执行第{}条用例：{}!!!'.format(recharge_case.id, recharge_case.title))
         r = session.request(method=method, url=recharge_url, headers=headers, data=recharge_case.data)
-        result = r.json()['code']
+        my_log.info(r.text)
+        result = int(r.json()['code'])
         try:
             self.assertEqual(recharge_case.expected, result)
             test_result = 'PASS'
@@ -90,8 +93,8 @@ class TestCases(unittest.TestCase):
             my_log.error(text)
             raise e
         finally:
-            login.write_data(row=recharge_case.id + 1, column=6, value=result)
-            login.write_data(row=recharge_case.id + 1, column=7, value=test_result)
+            recharge.write_data(row=recharge_case.id + 1, column=6, value=result)
+            recharge.write_data(row=recharge_case.id + 1, column=7, value=test_result)
 
     def tearDown(self):
         pass

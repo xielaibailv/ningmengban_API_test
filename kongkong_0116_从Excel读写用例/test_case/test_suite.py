@@ -13,14 +13,17 @@ api = ReadConf(conf_file).get_value('RUN', 'api')
 suite = unittest.TestSuite()
 loader = unittest.TestLoader()
 
-if api == 'register':
-    suite.addTest(loader.loadTestsFromName('test_case.TestCases.test_register'))
-elif api == 'login':
-    suite.addTest(loader.loadTestsFromName('test_case.TestCases.test_login'))
-elif api == 'recharge':
-    suite.addTest(loader.loadTestsFromName('test_case.TestCases.test_recharge'))
-elif api == 'all':
-    suite.addTest(loader.loadTestsFromTestCase(TestCases))
+suite.addTest(loader.loadTestsFromTestCase(TestCases))
+
+# 使用了ddt，不能再像这样执行单个用例
+# if api == 'register':
+#     suite.addTest(loader.loadTestsFromName('test_case.TestCases.test_register'))
+# elif api == 'login':
+#     suite.addTest(loader.loadTestsFromName('test_case.TestCases.test_login'))
+# elif api == 'recharge':
+#     suite.addTest(loader.loadTestsFromName('test_case.TestCases.test_recharge'))
+# elif api == 'all':
+#     suite.addTest(loader.loadTestsFromTestCase(TestCases))
 
 report_path = '../test_result/test_report.html'
 with open(report_path, 'wb') as file:
