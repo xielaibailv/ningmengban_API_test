@@ -21,7 +21,6 @@ register_cases = register.read_data()   # 注册数据
 login_cases = login.read_data()         # 登录数据
 recharge_cases = recharge.read_data()   # 充值数据
 
-session = requests.session()  # 实例化session，所有用例执行使用同一个session
 
 # 创建日志
 my_log = DoLog()
@@ -30,14 +29,15 @@ my_log = DoLog()
 @ddt
 class TestCases(unittest.TestCase):
 
-    def setUp(self):
-        pass
+    @classmethod
+    def setUpClass(cls):
+        cls.session = requests.session()  # 实例化session，所有用例执行使用同一个session
 
     # 测试注册接口
     @data(*register_cases)
     def test_register(self, register_case):
         my_log.info('注册接口：开始执行第{}条用例：{}!!!'.format(register_case.id, register_case.title))
-        r = session.request(method=method, url=register_url, headers=headers, data=register_case.data)
+        r = self.session.request(method=method, url=register_url, headers=headers, data=register_case.data)
         my_log.info(r.text)
         result = r.json()['status']
         try:
@@ -58,7 +58,7 @@ class TestCases(unittest.TestCase):
     @data(*login_cases)
     def test_login(self, login_case):
         my_log.info('登录接口：开始执行第{}条用例：{}!!!'.format(login_case.id,login_case.title))
-        r = session.request(method=method, url=login_url, headers=headers, data=login_case.data)
+        r = self.session.request(method=method, url=login_url, headers=headers, data=login_case.data)
         my_log.info(r.text)
         result = r.json()['status']
         try:
@@ -79,7 +79,7 @@ class TestCases(unittest.TestCase):
     @data(*recharge_cases)
     def test_recharge(self, recharge_case):
         my_log.info('充值接口：开始执行第{}条用例：{}!!!'.format(recharge_case.id, recharge_case.title))
-        r = session.request(method=method, url=recharge_url, headers=headers, data=recharge_case.data)
+        r = self.session.request(method=method, url=recharge_url, headers=headers, data=recharge_case.data)
         my_log.info(r.text)
         result = int(r.json()['code'])
         try:
@@ -96,8 +96,9 @@ class TestCases(unittest.TestCase):
             recharge.write_data(row=recharge_case.id + 1, column=6, value=result)
             recharge.write_data(row=recharge_case.id + 1, column=7, value=test_result)
 
-    def tearDown(self):
-        pass
+    @classmethod
+    def tearDownClass(cls):
+        cls.session.close()
 
 
 if __name__ == '__main__':
