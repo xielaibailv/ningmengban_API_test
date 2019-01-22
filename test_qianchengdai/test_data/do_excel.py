@@ -6,11 +6,7 @@ class Cases:
     def __init__(self):
         self.id = None
         self.title = None
-        # self.phone = None
-        # self.name = None
-        # self.pwd = None
         self.expected = None
-        # self.amount = None
         self.data = None
 
 

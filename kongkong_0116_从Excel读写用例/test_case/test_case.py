@@ -51,8 +51,8 @@ class TestCases(unittest.TestCase):
             my_log.error(text)
             raise e
         finally:
-            login.write_data(row=register_case.id + 1, column=7, value=result)
-            login.write_data(row=register_case.id + 1, column=8, value=test_result)
+            register.write_data(row=register_case.id + 1, column=7, value=result)
+            register.write_data(row=register_case.id + 1, column=8, value=test_result)
 
     # 测试登录接口
     @data(*login_cases)

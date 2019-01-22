@@ -1,6 +1,4 @@
 from kongkong_0116_从Excel读写用例.test_case.test_case import TestCases
-from kongkong_0116_从Excel读写用例.test_case import test_case
-from kongkong_0116_从Excel读写用例 import test_case
 import HTMLTestRunnerNew
 import unittest
 from kongkong_0116_从Excel读写用例.conf_file.read_conf import ReadConf
@@ -14,16 +12,6 @@ suite = unittest.TestSuite()
 loader = unittest.TestLoader()
 
 suite.addTest(loader.loadTestsFromTestCase(TestCases))
-
-# 使用了ddt，不能再像这样执行单个用例
-# if api == 'register':
-#     suite.addTest(loader.loadTestsFromName('test_case.TestCases.test_register'))
-# elif api == 'login':
-#     suite.addTest(loader.loadTestsFromName('test_case.TestCases.test_login'))
-# elif api == 'recharge':
-#     suite.addTest(loader.loadTestsFromName('test_case.TestCases.test_recharge'))
-# elif api == 'all':
-#     suite.addTest(loader.loadTestsFromTestCase(TestCases))
 
 report_path = '../test_result/test_report.html'
 with open(report_path, 'wb') as file:

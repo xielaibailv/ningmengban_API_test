@@ -1,6 +1,6 @@
 import contextlib
-from test_qianchengdai.test_data.do_excel import DoExcel
-from test_qianchengdai.test_case.mysql import MySQL
+from kongkong_0116_从Excel读写用例.test_data.do_excel import DoExcel
+from kongkong_0116_从Excel读写用例.test_case.mysql import MySQL
 
 
 # class DoMySQL:
