@@ -1,6 +1,6 @@
 import contextlib
 from test_qianchengdai.test_data.do_excel import DoExcel
-from test_qianchengdai.test_case.mysql import MySQL
+import pymysql
 
 
 # class DoMySQL:
